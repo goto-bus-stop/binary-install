@@ -20,9 +20,9 @@ fn main() {
     let c_num = matches.occurrences_of("c");
 
     if c_num == 0 {
-        eprintln!("{} you didn't pass any -c arguments ", Emoji("🥺 ", ""))
+        eprintln!("{}you didn't pass any -c arguments ", Emoji("🥺  ", ""))
     } else {
-        println!("{} you passed {} -c arguments!", Emoji("🥰 ", ""), c_num);
+        println!("{}you passed {} -c arguments!", Emoji("🥰  ", ""), c_num);
     }
 
     if let Some(_) = matches.subcommand_matches("echo") {
