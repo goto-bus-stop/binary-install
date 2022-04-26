@@ -51,6 +51,28 @@ npm i && npx my-binary --version
 1.0.0
 ```
 
+You need one more thing before your package is ready to distribute. Make a `run.js` file that looks like this:
+
+```node
+#!/usr/bin/env node
+
+const { Binary } = require("binary-install");
+let binary = new Binary('my-binary', 'https://example.com/binary/tar.gz')
+binary.run();
+```
+
+And then in your `package.json`, add the following:
+
+```json
+{
+  ...
+  "bin": {
+    "my-binary": "run.js"
+  }
+  ...
+}
+```
+
 ### Real-world usage
 
 Unfortunately, it's never quite as simple as the above example. You likely want to be able to make changes to your binary and release new versions. You also likely want to distribute on multiple platforms. This means that you'll probably need something that dynamically builds your tarball endpoint with that information. A pretty straightforward example of how you can achieve this can be found [here](./packages/binary-install-example/). You probably want to just clone this repo and take that package as your starting point, just renaming everything along the way, it should get you pretty far.
