@@ -55,11 +55,13 @@ class Binary {
     return existsSync(this.binaryPath);
   }
 
-  install(fetchOptions) {
+  install(fetchOptions, suppressLogs = false) {
     if (this.exists()) {
-      console.error(
-        `${this.name} is already installed, skipping installation.`
-      );
+      if (suppressLogs) {
+        console.error(
+          `${this.name} is already installed, skipping installation.`
+        );
+      }
       return Promise.resolve();
     }
 
@@ -69,7 +71,9 @@ class Binary {
 
     mkdirSync(this.installDirectory, { recursive: true });
 
-    console.error(`Downloading release from ${this.url}`);
+    if (suppressLogs) {
+      console.error(`Downloading release from ${this.url}`);
+    }
 
     return axios({ ...fetchOptions, url: this.url, responseType: "stream" })
       .then(res => {
@@ -82,16 +86,18 @@ class Binary {
         });
       })
       .then(() => {
-        console.error(`${this.name} has been installed!`);
+        if (suppressLogs) {
+          console.error(`${this.name} has been installed!`);
+        }
       })
       .catch(e => {
         error(`Error fetching release: ${e.message}`);
       });
   }
 
-  run() {
-    if (!existsSync(this.binaryPath)) {
-      error(`You must install ${this.name} before you can run it`);
+  run(fetchOptions) {
+    if (!this.exists()) {
+      this.install(fetchOptions, true)
     }
 
     const [, , ...args] = process.argv;
