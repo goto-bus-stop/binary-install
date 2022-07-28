@@ -57,7 +57,7 @@ class Binary {
 
   install(fetchOptions, suppressLogs = false) {
     if (this.exists()) {
-      if (suppressLogs) {
+      if (!suppressLogs) {
         console.error(
           `${this.name} is already installed, skipping installation.`
         );
