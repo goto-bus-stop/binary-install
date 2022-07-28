@@ -57,7 +57,7 @@ class Binary {
 
   install(fetchOptions) {
     if (this.exists()) {
-      console.debug(
+      console.error(
         `${this.name} is already installed, skipping installation.`
       );
       return Promise.resolve();
