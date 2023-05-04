@@ -72,7 +72,7 @@ class Binary {
 
     mkdirSync(this.installDirectory, { recursive: true });
 
-    if (suppressLogs) {
+    if (!suppressLogs) {
       console.error(`Downloading release from ${this.url}`);
     }
 
@@ -87,7 +87,7 @@ class Binary {
         });
       })
       .then(() => {
-        if (suppressLogs) {
+        if (!suppressLogs) {
           console.error(`${this.name} has been installed!`);
         }
       })
