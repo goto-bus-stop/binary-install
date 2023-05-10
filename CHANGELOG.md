@@ -8,9 +8,7 @@
 
   Example: `new Binary("my-binary", "https://example.com/my-binary.tar.gz", { "installDirectory": "/tmp/custom-dir" })`
 
-### Maintenance
-
-- Updates `binary-install-example` to download Intel binaries by default for Apple Silicon machines - @maxdeviant, PR #24
+### Fixes
 
 - Fix log suppression configuration - @maxdeviant, PR #23
 
@@ -19,6 +17,10 @@
 - Wait for a complete install before running a binary - @wighawag, PR #28 fixes #27
 
   Sometimes installation wouldn't complete before the binary was run, this PR rewrites the code to fully complete installation before continuing to execution.
+
+### Maintenance
+
+- Updates `binary-install-example` to download Intel binaries by default for Apple Silicon machines - @maxdeviant, PR #24
 
 - Fix up integration tests - @EverlastingBugstopper, PR #31
 
