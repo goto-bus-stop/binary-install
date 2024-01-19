@@ -6,7 +6,7 @@ const axios = require("axios");
 const tar = require("tar");
 const rimraf = require("rimraf");
 
-const error = msg => {
+const error = (msg) => {
   console.error(msg);
   process.exit(1);
 };
@@ -50,7 +50,7 @@ class Binary {
     if (errors.length > 0) {
       let errorMsg =
         "One or more of the parameters you passed to the Binary constructor are invalid:\n";
-      errors.forEach(error => {
+      errors.forEach((error) => {
         errorMsg += error;
       });
       errorMsg +=
@@ -69,7 +69,7 @@ class Binary {
 
     this.binaryPath = join(
       this.installDirectory,
-      `${this.name}-${this.version}`
+      `${this.name}-${this.version}`,
     );
   }
 
@@ -81,7 +81,7 @@ class Binary {
     if (this.exists()) {
       if (!suppressLogs) {
         console.error(
-          `${this.name} is already installed, skipping installation.`
+          `${this.name} is already installed, skipping installation.`,
         );
       }
       return Promise.resolve();
@@ -98,13 +98,13 @@ class Binary {
     }
 
     return axios({ ...fetchOptions, url: this.url, responseType: "stream" })
-      .then(res => {
+      .then((res) => {
         return new Promise((resolve, reject) => {
           const sink = res.data.pipe(
-            tar.x({ strip: 1, C: this.installDirectory })
+            tar.x({ strip: 1, C: this.installDirectory }),
           );
           sink.on("finish", () => resolve());
-          sink.on("error", err => reject(err));
+          sink.on("error", (err) => reject(err));
         });
       })
       .then(() => {
@@ -112,7 +112,7 @@ class Binary {
           console.error(`${this.name} has been installed!`);
         }
       })
-      .catch(e => {
+      .catch((e) => {
         error(`Error fetching release: ${e.message}`);
       });
   }
@@ -136,7 +136,7 @@ class Binary {
 
         process.exit(result.status);
       })
-      .catch(e => {
+      .catch((e) => {
         error(e.message);
         process.exit(1);
       });

@@ -11,7 +11,7 @@ const os = require("os");
 const { join } = require("path");
 const cTable = require("console.table");
 
-const error = msg => {
+const error = (msg) => {
   console.error(msg);
   process.exit(1);
 };
@@ -23,26 +23,26 @@ const supportedPlatforms = [
     TYPE: "Windows_NT",
     ARCHITECTURE: "x64",
     RUST_TARGET: "x86_64-pc-windows-msvc",
-    BINARY_NAME: "binary-install-example.exe"
+    BINARY_NAME: "binary-install-example.exe",
   },
   {
     TYPE: "Linux",
     ARCHITECTURE: "x64",
     RUST_TARGET: "x86_64-unknown-linux-musl",
-    BINARY_NAME: "binary-install-example"
+    BINARY_NAME: "binary-install-example",
   },
   {
     TYPE: "Darwin",
     ARCHITECTURE: "x64",
     RUST_TARGET: "x86_64-apple-darwin",
-    BINARY_NAME: "binary-install-example"
+    BINARY_NAME: "binary-install-example",
   },
   {
     TYPE: "Darwin",
     ARCHITECTURE: "arm64",
     RUST_TARGET: "x86_64-apple-darwin",
-    BINARY_NAME: "binary-install-example"
-  }
+    BINARY_NAME: "binary-install-example",
+  },
 ];
 
 const getPlatformMetadata = () => {
@@ -60,8 +60,8 @@ const getPlatformMetadata = () => {
 
   error(
     `Platform with type "${type}" and architecture "${architecture}" is not supported by ${name}.\nYour system must be one of the following:\n\n${cTable.getTable(
-      supportedPlatforms
-    )}`
+      supportedPlatforms,
+    )}`,
   );
 };
 
@@ -71,7 +71,7 @@ const getBinary = () => {
   // https://github.com/EverlastingBugstopper/binary-install/releases/download/v1.0.0/binary-install-example-v1.0.0-x86_64-apple-darwin.tar.gz
   const url = `${repository.url}/releases/download/rust_v${version}/${name}-v${version}-${platformMetadata.RUST_TARGET}.tar.gz`;
   return new Binary(platformMetadata.BINARY_NAME, url, version, {
-    installDirectory: join(__dirname, "node_modules", ".bin")
+    installDirectory: join(__dirname, "node_modules", ".bin"),
   });
 };
 
@@ -87,5 +87,5 @@ const install = () => {
 
 module.exports = {
   install,
-  run
+  run,
 };
